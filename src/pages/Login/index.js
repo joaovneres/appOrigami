@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import { TextInput } from "react-native-paper";
@@ -6,6 +6,11 @@ import { TextInput } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
 
 export default function Login() {
+
+  const [type, setType] = useState('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <View style={styles.container}>
       <Animatable.View
@@ -14,7 +19,7 @@ export default function Login() {
         style={styles.containerHeader}
       >
         <Text style={styles.message}>
-          Bem-vindo(a) ao APP da Padaria Origami
+          Bem-vindo(a) ao app da Padaria Origami
         </Text>
       </Animatable.View>
       <Animatable.View animation="fadeInUp" style={styles.containerForm}>
@@ -24,6 +29,8 @@ export default function Login() {
           placeholder="Digite um email..."
           activeOutlineColor="#495e4b"
           style={styles.input}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           mode="outlined"
@@ -32,6 +39,8 @@ export default function Login() {
           placeholder="Digite uma senha..."
           activeOutlineColor="#495e4b"
           style={styles.input}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Entrar</Text>
@@ -74,10 +83,9 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 12,
     marginBottom: 12,
-    backgroundColor: "#DAE1DA",
+    backgroundColor: "#FFF",
     height: 60,
     fontSize: 18,
-    
   },
   button: {
     backgroundColor: "#495e4b",
