@@ -3,3 +3,5 @@
 .color3 { #33503d };
 .color4 { #748474 };
 .color5 { #bcd4c4 };
+.color6 { #dae1da };
+.color7 { #495e4b };
