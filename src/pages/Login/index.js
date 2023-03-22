@@ -2,14 +2,40 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import { TextInput } from "react-native-paper";
-
+import firebase from "../../services/connectionFirebase";
 import * as Animatable from "react-native-animatable";
 
-export default function Login() {
+export default function Login({ changeStatus }) {
 
   const [type, setType] = useState('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    if (type === 'login') {
+      // Aqui fazemos o login
+      const user = firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((user) => {
+          changeStatus(user.user.uid)
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Email ou senha não cadastrados!');
+          return;
+        })
+    } else {
+      // Aqui cadastramos o usuario 
+      const user = firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((user) => {
+          changeStatus(user.user.uid)
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Erro ao Cadastrar!');
+          return;
+        })
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -42,7 +68,7 @@ export default function Login() {
           value={password}
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => handleLogin()}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonRegister}>
