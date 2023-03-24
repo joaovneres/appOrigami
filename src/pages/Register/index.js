@@ -1,20 +1,10 @@
-import React from "react";
-
-import { useForm, Controller } from "react-hook-form";
-import { View } from "react-native-animatable";
+import React from 'react'
+import { Text, View } from 'react-native'
 
 export default function Register() {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({});
-
-  function handleRegister(data) {}
-
   return (
     <View>
-        
+      <Text>Página de cadastro</Text>
     </View>
   )
 }

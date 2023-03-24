@@ -1,23 +1,92 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+// import Produtos from './Produtos/produtos'
+//import LinearGradient from 'react-native-linear-gradient';
 
+// importando páginas
 import Home from '../pages/Home';
-import Login from '../pages/Login';
+import List from '../pages/List';
+import Register from '../pages/Register';
+import Notifications from '../pages/Notifications';
 
-const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
 
 export default function Routes() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarActiveTintColor: "#495e4b",
+                tabBarInactiveTintColor: "#777",
+                tabBarStyle: [
+                    {
+                        "display": "flex"
+                    },
+                    null
+                ],
+                tabBarIcon: ({ color, size }) => {
+                    let iconName;
+                    switch (route.name) {
+                        case 'Home':
+                            iconName = 'home';
+                            break;
+                        case 'Lista':
+                            iconName = 'list-outline';
+                            break;
+                        case 'Cadastrar':
+                            iconName = 'save-outline';
+                            break;
+                        case 'Notificações':
+                            iconName = 'bell';
+                            break;
+                        default:
+                            iconName = 'add-circle-outline';
+                            break;
+                    }
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: '#495e4b',
+                inactiveTintColor: '#777',
+
+            }}
+        >
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="Lista" component={List} />
+            <Tab.Screen
+                name="Cadastrar"
+                component={Register}
             />
-            <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{ headerShown: false }}
-            />
-        </Stack.Navigator>
+            <Tab.Screen name="Notifications" component={Notifications} />
+        </Tab.Navigator>
     );
 }
+
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    iconTabRound: {
+        width: 60,
+        height: 90,
+        borderRadius: 30,
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 6,
+        shadowColor: '#495e4b',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+    }
+});

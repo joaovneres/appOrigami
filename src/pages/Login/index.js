@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
 import { TextInput } from "react-native-paper";
 import firebase from "../../services/connectionFirebase";
@@ -38,7 +38,7 @@ export default function Login({ changeStatus }) {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <Animatable.View
         animation="fadeInLeft"
         delay={500}
@@ -75,7 +75,7 @@ export default function Login({ changeStatus }) {
           <Text style={styles.registerText}>Não possui conta? Cadastre-se</Text>
         </TouchableOpacity>
       </Animatable.View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

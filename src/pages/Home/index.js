@@ -21,20 +21,8 @@ export default function Home() {
         animation="fadeInUp"
         style={styles.containerForm}
       >
-        <Text style={styles.title}>Feitos com amor</Text>
-        <Text style={styles.text}>Faça o login para começar</Text>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonHelp}
-        >
-          <Text style={styles.buttonText}>Ajuda</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>Tradição e sabor em forma de pães artesanais</Text>
+        
       </Animatable.View>
     </View>
   );
@@ -62,11 +50,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 26,
+    fontSize: 30,
     fontWeight: "bold",
     marginTop: "20%",
     marginBottom: 10,
     color: "#33503d",
+    textAlign: "center"
   },
   text: {
     color: "#a1a1a1",
