@@ -34,10 +34,10 @@ export default function Routes() {
                         case 'Home':
                             iconName = 'home';
                             break;
-                        case 'Lista':
+                        case 'Produtos':
                             iconName = 'list-outline';
                             break;
-                        case 'Cadastrar':
+                        case 'Gerenciar':
                             iconName = 'save-outline';
                             break;
                         case 'Notificações':
@@ -50,16 +50,11 @@ export default function Routes() {
                     return <Icon name={iconName} size={size} color={color} />;
                 },
             })}
-            tabBarOptions={{
-                activeTintColor: '#495e4b',
-                inactiveTintColor: '#777',
-
-            }}
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Lista" component={List} />
             <Tab.Screen
-                name="Cadastrar"
+                name="Gerenciar"
                 component={Register}
             />
             <Tab.Screen name="Notifications" component={Notifications} />
