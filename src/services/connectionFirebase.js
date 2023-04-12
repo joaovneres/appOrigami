@@ -13,6 +13,7 @@ let firebaseConfig = {
     projectId: "dbapporigami",
     storageBucket: "dbapporigami.appspot.com",
     messagingSenderId: "471263778369",
+    databaseURL: 'https://dbapporigami-default-rtdb.firebaseio.com/',
     appId: "1:471263778369:web:c7544ad4c5ba7b144998c0"
 };
 

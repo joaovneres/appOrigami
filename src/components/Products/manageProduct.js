@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     Text, View, StyleSheet, SafeAreaView, TextInput, Button,
-    ActivityIndicator, FlatList
+    ActivityIndicator, FlatList, TouchableOpacity
 } from 'react-native';
 import firebase from '../../services/connectionFirebase';
 
 export default function ManageProducts() {
 
     const [name, setName] = useState('');
-    const [brand, setBrand] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [unity, setUnity] = useState('');
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
 
@@ -25,11 +26,27 @@ export default function ManageProducts() {
                 onChangeText={(text) => setName(text)}
             // ref={inputRef}
             />
+            <View style={style.conjunInput}>
+                <TextInput
+                    placeholder='Quantidade'
+                    style={[style.input, { width: "43%" }]}
+                    value={quantity}
+                    onChangeText={(text) => setQuantity(text)}
+                // ref={inputRef}
+                />
+                <TextInput
+                    placeholder='Unidade'
+                    style={[style.input, { width: "23%" }]}
+                    value={unity}
+                    onChangeText={(text) => setUnity(text)}
+                // ref={inputRef}
+                />
+            </View>
             <TextInput
-                placeholder='Marca'
+                placeholder='Preço'
                 style={style.input}
-                value={brand}
-                onChangeText={(text) => setBrand(text)}
+                value={price}
+                onChangeText={(text) => setPrice(text)}
             // ref={inputRef}
             />
             <TextInput
@@ -39,26 +56,19 @@ export default function ManageProducts() {
                 onChangeText={(text) => setImage(text)}
             // ref={inputRef}
             />
-            <TextInput
-                placeholder='Preço'
-                style={style.input}
-                value={price}
-                onChangeText={(text) => setPrice(text)}
-            // ref={inputRef}
-            />
-            <View style={style.button}>
-                <Button
-                    onPress={''}
-                    title="Enviar"
-                    color="#080"
-                    accessibilityLabel=""
-                />
-            </View>
+            <TouchableOpacity style={style.button} onPress={''}>
+                <Text style={style.buttonText}>Cadastrar</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     text: {
         fontSize: 20,
         textAlign: 'center',
@@ -70,7 +80,6 @@ const style = StyleSheet.create({
     input: {
         marginTop: 20,
         marginBottom: 10,
-        marginLeft: 30,
         backgroundColor: '#fff',
         borderRadius: 4,
         height: 45,
@@ -82,10 +91,24 @@ const style = StyleSheet.create({
         maxHeight: 300,
         maxWidth: 300,
     },
+    conjunInput: {
+        justifyContent: "space-around",
+        flexDirection: "row"
+    },
     button: {
-        width: 100,
-        marginLeft: 225,
-        marginTop: 30
+        backgroundColor: "#495e4b",
+        width: "50%",
+        borderRadius: 50,
+        paddingVertical: 9,
+        marginTop: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "flex-end",
+    },
+    buttonText: {
+        color: "#FFF",
+        fontSize: 15,
+        fontWeight: "bold",
     },
     listar: {
         size: 20,
