@@ -35,12 +35,12 @@ export default function Routes() {
                             iconName = 'home';
                             break;
                         case 'Produtos':
-                            iconName = 'list-outline';
+                            iconName = 'list';
                             break;
                         case 'Gerenciar':
-                            iconName = 'save-outline';
+                            iconName = 'save';
                             break;
-                        case 'Notificações':
+                        case 'Notifications':
                             iconName = 'bell';
                             break;
                         default:

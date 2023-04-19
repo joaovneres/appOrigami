@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
-    Text, View, StyleSheet, SafeAreaView, TextInput, Button,
-    ActivityIndicator, FlatList, TouchableOpacity
+    Text, View, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, Keyboard
 } from 'react-native';
 import firebase from '../../services/connectionFirebase';
 
@@ -13,7 +12,38 @@ export default function ManageProducts() {
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
 
+    async function insert() {
+        //editar dados
+        if (name !== '' & quantity !== '' & unity !== '' & image !== '' & price !== '' & key !== '') {
+            firebase.database().ref('products').child(key).update({
+                name: name,
+                quantity: quantity,
+                unity: unity,
+                image: image,
+                price: price
+            })
+            // para o teclado abaixo não flutuante
+            Keyboard.dismiss();
+            alert('Produto editado!');
+            limparDados();
+            setKey('');
+            return;
+        }
+        //cadastrar dados
+        let products = await firebase.database().ref('products');
+        let key = products.push().key;
 
+        products.child(key).set({
+            name: name,
+            quantity: quantity,
+            unity: unity,
+            image: image,
+            price: price
+        });
+
+        alert('Produto cadastrado!');
+        limparDados();
+    }
     return (
         <SafeAreaView style={style.container}>
             <Text style={style.text}>
@@ -56,7 +86,7 @@ export default function ManageProducts() {
                 onChangeText={(text) => setImage(text)}
             // ref={inputRef}
             />
-            <TouchableOpacity style={style.button} onPress={''}>
+            <TouchableOpacity style={style.button} onPress={insert}>
                 <Text style={style.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
         </SafeAreaView>
