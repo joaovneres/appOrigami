@@ -11,11 +11,12 @@ export default function ManageProducts() {
     const [unity, setUnity] = useState('');
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
+    const [key, setKey] = useState('');
 
-    async function insert() {
+    async function insertUpdate() {
         //editar dados
         if (name !== '' & quantity !== '' & unity !== '' & image !== '' & price !== '' & key !== '') {
-            firebase.database().ref('products').child(key).update({
+            firebase.database().ref('product').child(key).update({
                 name: name,
                 quantity: quantity,
                 unity: unity,
@@ -25,13 +26,11 @@ export default function ManageProducts() {
             // para o teclado abaixo não flutuante
             Keyboard.dismiss();
             alert('Produto editado!');
-            limparDados();
-            setKey('');
+            clearData();
             return;
         }
         //cadastrar dados
-        let products = await firebase.database().ref('products');
-        let key = products.push().key;
+        setKey(await firebase.database().ref('product').push().key);
 
         products.child(key).set({
             name: name,
@@ -42,8 +41,18 @@ export default function ManageProducts() {
         });
 
         alert('Produto cadastrado!');
-        limparDados();
+        clearData();
     }
+
+    function clearData() {
+        setName("");
+        setQuantity("");
+        setUnity("");
+        setImage("");
+        setPrice("");
+        setKey("");
+    }
+
     return (
         <SafeAreaView style={style.container}>
             <Text style={style.text}>
@@ -86,7 +95,7 @@ export default function ManageProducts() {
                 onChangeText={(text) => setImage(text)}
             // ref={inputRef}
             />
-            <TouchableOpacity style={style.button} onPress={insert}>
+            <TouchableOpacity style={style.button} onPress={insertUpdate}>
                 <Text style={style.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
         </SafeAreaView>
