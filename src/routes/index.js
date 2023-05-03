@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 // import Produtos from './Produtos/produtos'
@@ -8,8 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 // importando páginas
 import Home from '../pages/Home';
-import List from '../pages/List';
-import Register from '../pages/Register';
+import ManageFoods from '../components/Foods/manageFoods';
+import ManageDrinks from '../components/Drinks/manageDrinks';
 import Notifications from '../pages/Notifications';
 
 
@@ -34,14 +33,14 @@ export default function Routes() {
                         case 'Home':
                             iconName = 'home';
                             break;
-                        case 'Produtos':
-                            iconName = 'list';
+                        case 'Drinks':
+                            iconName = 'cafe-sharp';
                             break;
-                        case 'Gerenciar':
-                            iconName = 'save';
+                        case 'Foods':
+                            iconName = 'bakery-dining';
                             break;
                         case 'Notifications':
-                            iconName = 'bell';
+                            iconName = 'notifications';
                             break;
                         default:
                             iconName = 'add-circle-outline';
@@ -52,11 +51,8 @@ export default function Routes() {
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Lista" component={List} />
-            <Tab.Screen
-                name="Gerenciar"
-                component={Register}
-            />
+            <Tab.Screen name="Drinks" component={ManageDrinks} />
+            <Tab.Screen name="Foods" component={ManageFoods} />
             <Tab.Screen name="Notifications" component={Notifications} />
         </Tab.Navigator>
     );

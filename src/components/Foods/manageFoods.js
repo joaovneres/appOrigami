@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
     Text, View, StyleSheet, SafeAreaView, TextInput, TouchableOpacity, Keyboard, FlatList, ActivityIndicator, Modal
 } from 'react-native';
-import List from '../../pages/List';
+import List from './List';
 import firebase from '../../services/connectionFirebase';
 
-export default function ManageProducts() {
+export default function ManageFoods() {
 
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -13,15 +13,14 @@ export default function ManageProducts() {
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
     const [key, setKey] = useState('');
-    const [products, setProducts] = useState([]);
+    const [foods, setFoods] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [modalActive, setModalActive] = useState(false)
     const inputRef = useRef(null)
 
     useEffect(() => {
         async function search() {
-            await firebase.database().ref('product').on('value', (snapshot) => {
-                setProducts([]);
+            await firebase.database().ref('foods').on('value', (snapshot) => {
+                setFoods([]);
                 snapshot.forEach((chilItem) => {
                     let data = {
                         key: chilItem.key,
@@ -31,7 +30,7 @@ export default function ManageProducts() {
                         image: chilItem.val().image,
                         price: chilItem.val().price,
                     };
-                    setProducts(oldArray => [...oldArray, data].reverse());
+                    setFoods(oldArray => [...oldArray, data].reverse());
                 })
                 setLoading(false);
             })
@@ -41,11 +40,12 @@ export default function ManageProducts() {
 
     //função para excluir um item  
     function handleDelete(key) {
-        firebase.database().ref('product').child(key).remove()
+        firebase.database().ref('foods').child(key).remove()
             .then(() => {
-                const findProducts = products.filter(item => item.key !== key)
-                setProducts(findProducts)
+                const findFoods = foods.filter(item => item.key !== key)
+                setFoods(findFoods)
             })
+        alert('Alimento excluído!');
     }
 
     //função para editar  
@@ -61,7 +61,7 @@ export default function ManageProducts() {
     async function insertUpdate() {
         //editar dados
         if (name !== '' & quantity !== '' & unity !== '' & image !== '' & price !== '' & key !== '') {
-            firebase.database().ref('product').child(key).update({
+            firebase.database().ref('foods').child(key).update({
                 name: name,
                 quantity: quantity,
                 unity: unity,
@@ -70,14 +70,14 @@ export default function ManageProducts() {
             })
             // para o teclado abaixo não flutuante
             Keyboard.dismiss();
-            alert('Produto editado!');
+            alert('Alimento editado!');
             clearData();
             return;
         }
         //cadastrar dados
-        let product = await firebase.database().ref('product');
+        let food = await firebase.database().ref('foods');
 
-        product.child(product.push().key).set({
+        food.child(food.push().key).set({
             name: name,
             quantity: quantity,
             unity: unity,
@@ -85,7 +85,7 @@ export default function ManageProducts() {
             price: price
         });
 
-        alert('Produto cadastrado!');
+        alert('Alimento cadastrado!');
         clearData();
     }
 
@@ -101,8 +101,8 @@ export default function ManageProducts() {
     return (
         <View style={style.container}>
             <SafeAreaView style={style.form}>
-                <Text style={style.text}>
-                    Cadastro de Produtos
+                <Text style={style.textTitle}>
+                    Cadastro de alimentos
                 </Text>
                 <TextInput
                     placeholder='Nome'
@@ -147,8 +147,7 @@ export default function ManageProducts() {
             </SafeAreaView>
             <View style={style.list}>
 
-                <Text style={style.listar}>Listagem de Produtos</Text>
-
+                <Text style={style.listar}>Listagem de Alimentos</Text>
 
                 {
                     loading ?
@@ -158,7 +157,7 @@ export default function ManageProducts() {
                         (
                             <FlatList
                                 keyExtractor={item => item.key}
-                                data={products}
+                                data={foods}
                                 renderItem={({ item }) => (
                                     <List data={item} deleteItem={handleDelete}
                                         editItem={handleEdit} />
@@ -166,17 +165,6 @@ export default function ManageProducts() {
                             />
                         )
                 }
-                <Modal
-                    animationType='fade'
-                    transparent={true}
-                    visible={modalActive}
-                    onRequestClose={() => setModalActive(false)}>
-                    <View style={style.outerView}>
-                        <View style={style.modalView}>
-
-                        </View>
-                    </View>
-                </Modal>
             </View>
         </View>
     )
@@ -186,36 +174,24 @@ const style = StyleSheet.create({
     container: {
         alignItems: 'center',
         flex: 1,
+        backgroundColor: '#DAE1DA'
     },
     form: {
-        flex: 2,
+        flex: 1,
         alignItems: 'center'
     },
     list: {
-        flex: 3,
-        alignItems: 'center'
-    },
-    outerView: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0,2)'
-    },
-    modalView: {
-        backgroundColor: 'white',
-        borderRadius: 30,
-        padding: 35,
-        width: 200,
         alignItems: 'center'
     },
-    text: {
-        fontSize: 20,
-        textAlign: 'center',
+    textTitle: {
+        fontSize: 30,
+        fontWeight: "bold",
+        textAlign: "center",
+        alignSelf: 'center',
+        color: "#33503d",
         marginBottom: 10,
         marginTop: 20,
-        color: '#000000',
-        fontWeight: 'bold',
-        alignSelf: 'center'
     },
     input: {
         marginTop: 10,
