@@ -1,7 +1,9 @@
+//@ts-check
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 // import Produtos from './Produtos/produtos'
 //import LinearGradient from 'react-native-linear-gradient';
 
@@ -33,13 +35,12 @@ export default function Routes() {
                         case 'Home':
                             iconName = 'home';
                             break;
-                        case 'Drinks':
+                        case 'Bebidas':
                             iconName = 'cafe-sharp';
                             break;
-                        case 'Foods':
-                            iconName = 'bakery-dining';
-                            break;
-                        case 'Notifications':
+                        case 'Alimentos':
+                            return <IconMaterial name={'bakery-dining'} size={35} color={color} />;
+                        case 'Notificações':
                             iconName = 'notifications';
                             break;
                         default:
@@ -51,33 +52,9 @@ export default function Routes() {
             })}
         >
             <Tab.Screen name="Home" component={Home} />
-            <Tab.Screen name="Drinks" component={ManageDrinks} />
-            <Tab.Screen name="Foods" component={ManageFoods} />
-            <Tab.Screen name="Notifications" component={Notifications} />
+            <Tab.Screen name="Bebidas" component={ManageDrinks} />
+            <Tab.Screen name="Alimentos" component={ManageFoods} />
+            <Tab.Screen name="Notificações" component={Notifications} />
         </Tab.Navigator>
     );
 }
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    iconTabRound: {
-        width: 60,
-        height: 90,
-        borderRadius: 30,
-        marginBottom: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 6,
-        shadowColor: '#495e4b',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-    }
-});

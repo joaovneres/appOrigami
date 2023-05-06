@@ -224,7 +224,4 @@ const style = StyleSheet.create({
         fontSize: 15,
         fontWeight: "bold",
     },
-    listar: {
-        size: 20,
-    },
 })
