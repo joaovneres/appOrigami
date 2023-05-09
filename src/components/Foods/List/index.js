@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Dimensions } from 'react-native';
-import { Button, Card } from 'react-native-paper';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Dimensions, Button } from 'react-native';
+import { Card } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -13,30 +13,20 @@ export default function List({ data, deleteItem, editItem }) {
 
         <View >
             <Card style={styles.container}>
-                <Card.Title title="Card Title" />
-                <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                <Card.Title title={data.name} titleStyle={styles.titleCard} />
+                <Card.Cover source={{ uri: data.image }} style={styles.image} />
                 <Card.Content>
-                    <Text variant="titleLarge">Card title</Text>
-                    <Text variant="bodyMedium">Card content</Text>
+                    <Text style={styles.textPrice}>R$ {data.price}</Text>
+                    <View style={styles.unityContainer}>
+                        <Text style={styles.textCard}>{data.quantity}</Text>
+                        <Text style={styles.textCard}>{data.unity}</Text>
+                    </View>
                 </Card.Content>
-                <Card.Actions>
-                    <Button onPress={() => setModalActive(true)}>Excluir</Button>
-                    <Button onPress={() => editItem(data)}>Editar</Button>
+                <Card.Actions style={styles.cardAction}>
+                    <TouchableOpacity onPress={() => setModalActive(true)}><Icon name="trash" color="#A52A2A" size={20}>Excluir</Icon></TouchableOpacity>
+                    <TouchableOpacity onPress={() => editItem(data)}><Icon name="create" color="blue" size={20}>Editar</Icon></TouchableOpacity>
                 </Card.Actions>
             </Card>
-            <Text style={styles.text}>Produto: {data.name}</Text>
-            <Text style={styles.text}>Preço(R$): {data.price}</Text>
-            <Text style={styles.text}>Quantidade: {data.quantity}</Text>
-            <Text style={styles.text}>Unidade: {data.unity}</Text>
-            <Text style={styles.text}>Imagem: {data.image}</Text>
-            <View style={styles.item}>
-                <TouchableOpacity >
-                    <Icon name="trash" color="#A52A2A" size={20}>Excluir</Icon>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => editItem(data)}>
-                    <Icon name="create" color="blue" size={20}>Editar</Icon>
-                </TouchableOpacity>
-            </View>
             <Modal
                 animationType='fade'
                 transparent={true}
@@ -71,15 +61,31 @@ const styles = StyleSheet.create({
         width: item_width,
         alignItems: 'center'
     },
+    titleCard: {
+        fontSize: 23,
+        color: "#33503d",
+        fontWeight: "bold",
+    },
     image: {
-        height: item_width
+        height: item_width * 0.9,
+        width: item_width * 0.9
     },
-    text: {
-        color: 'black',
-        fontSize: 17
+    textPrice: {
+        fontSize: 23,
+        color: "#33503d",
+        fontWeight: "bold",
+        marginTop: 10
     },
-    item: {
-        flex: 1,
+    unityContainer: {
+        flexDirection: 'row',
+        margin: 0
+    },
+    textCard: {
+        fontSize: 18,
+        color: "#33503d",
+        marginRight: 10
+    },
+    cardAction:{
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
