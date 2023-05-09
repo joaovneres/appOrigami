@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     },
     cardAction:{
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around  '
     },
     outerView: {
         flex: 1,
