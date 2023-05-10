@@ -20,7 +20,7 @@ export default function Home() {
         animation="fadeInUp"
         style={styles.containerForm}
       >
-        <Text style={styles.title}>Tradição e sabor em forma de pães artesanais</Text>
+        <Text style={styles.title}>Sabor e beleza em cada pãozinho da Padaria Origami!</Text>
         
       </Animatable.View>
     </View>
