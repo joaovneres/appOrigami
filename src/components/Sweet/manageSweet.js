@@ -8,7 +8,7 @@ import firebase from '../../services/connectionFirebase';
 //* Hooks imports
 import useKeyboardVisible from '../../hooks/common/useKeyboardView';
 
-export default function ManageFoods() {
+export default function ManageSweets() {
 
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -16,7 +16,7 @@ export default function ManageFoods() {
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
     const [key, setKey] = useState('');
-    const [foods, setFoods] = useState([]);
+    const [sweets, setSweets] = useState([]);
     const [loading, setLoading] = useState(true);
     const inputRef = useRef(null);
 
@@ -25,8 +25,8 @@ export default function ManageFoods() {
     useEffect(() => {
 
         async function search() {
-            await firebase.database().ref('foods').on('value', (snapshot) => {
-                setFoods([]);
+            await firebase.database().ref('sweets').on('value', (snapshot) => {
+                setSweets([]);
                 snapshot.forEach((chilItem) => {
                     let data = {
                         key: chilItem.key,
@@ -36,7 +36,7 @@ export default function ManageFoods() {
                         image: chilItem.val().image,
                         price: chilItem.val().price,
                     };
-                    setFoods(oldArray => [...oldArray, data].reverse());
+                    setSweets(oldArray => [...oldArray, data].reverse());
                 })
                 setLoading(false);
             })
@@ -46,12 +46,12 @@ export default function ManageFoods() {
 
     //função para excluir um item  
     function handleDelete(key) {
-        firebase.database().ref('foods').child(key).remove()
+        firebase.database().ref('sweets').child(key).remove()
             .then(() => {
-                const findFoods = foods.filter(item => item.key !== key)
-                setFoods(findFoods)
+                const findSweets = sweets.filter(item => item.key !== key)
+                setSweets(findSweets)
             })
-        alert('Alimento excluído!');
+        alert('Doce excluído!');
     }
 
     //função para editar  
@@ -67,7 +67,7 @@ export default function ManageFoods() {
     async function insertUpdate() {
         //editar dados
         if (name !== '' & quantity !== '' & unity !== '' & image !== '' & price !== '' & key !== '') {
-            firebase.database().ref('foods').child(key).update({
+            firebase.database().ref('sweets').child(key).update({
                 name: name,
                 quantity: quantity,
                 unity: unity,
@@ -75,14 +75,14 @@ export default function ManageFoods() {
                 price: price
             })
             // para o teclado abaixo não flutuante
-            alert('Alimento editado!');
+            alert('Doce editado!');
             clearData();
             return;
         }
         //cadastrar dados
-        let food = await firebase.database().ref('foods');
+        let sweet = await firebase.database().ref('sweets');
 
-        food.child(food.push().key).set({
+        sweet.child(sweet.push().key).set({
             name: name,
             quantity: quantity,
             unity: unity,
@@ -90,7 +90,7 @@ export default function ManageFoods() {
             price: price
         });
 
-        alert('Alimento cadastrado!');
+        alert('Doce cadastrado!');
         clearData();
     }
 
@@ -106,7 +106,7 @@ export default function ManageFoods() {
     return (
         <SafeAreaView style={style.container}>
             <Text style={style.textTitle}>
-                Cadastro de alimentos
+                Cadastro de doces
             </Text>
             <View style={style.conjunInput}>
                 <TextInput
@@ -154,7 +154,7 @@ export default function ManageFoods() {
 
             <View style={style.list}>
 
-                <Text style={style.textTitle}>Alimentos</Text>
+                <Text style={style.textTitle}>Doces</Text>
 
                 {
                     loading ?
@@ -166,7 +166,7 @@ export default function ManageFoods() {
                                 horizontal
                                 keyExtractor={item => item.key}
                                 showsHorizontalScrollIndicator={false}
-                                data={foods}
+                                data={sweets}
                                 renderItem={({ item }) => (
                                     <List data={item}
                                         deleteItem={handleDelete}

@@ -47,7 +47,7 @@ export default function List({ data, deleteItem, editItem }) {
       >
         <View style={styles.outerView}>
           <View style={styles.modalView}>
-            <Text style={[styles.modalText, {fontSize: 18}]}>Deseja remover o alimento: </Text>
+            <Text style={[styles.modalText, {fontSize: 18}]}>Deseja remover o doce: </Text>
             <Text style={styles.modalText}>Nome: {data.name}</Text>
             <Text style={styles.modalText}>Preço(R$): {data.price}</Text>
             <Text style={styles.modalText}>Quantidade: {data.quantity}</Text>
