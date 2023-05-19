@@ -10,10 +10,9 @@ import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 // importando páginas
 import Home from '../pages/Home';
 import ManageDrinks from '../components/Drinks/manageDrinks';
-import Notifications from '../pages/Notifications';
-import ScreenFilmes from '../components/Filmes/screenfilmes';
-import ManageSweets from '../components/Savory/manageSavory';
+import ManageSweets from '../components/Sweet/manageSweet';
 import ManageSavories from '../components/Savory/manageSavory';
+
 
 
 const Tab = createBottomTabNavigator();
@@ -40,10 +39,10 @@ export default function Routes() {
                         case 'Bebidas':
                             iconName = 'cafe-sharp';
                             break;
-                        case 'Alimentos':
+                        case 'Doces':
                             return <IconMaterial name={'bakery-dining'} size={35} color={color} />;
-                        case 'Notificações':
-                            iconName = 'notifications';
+                        case 'Salgados':
+                            iconName = 'fast-food';
                             break;
                         default:
                             iconName = 'add-circle-outline';
@@ -55,8 +54,8 @@ export default function Routes() {
         >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Bebidas" component={ManageDrinks} />
-            <Tab.Screen name="Alimentos" component={ManageSweets} />
-            <Tab.Screen name="Notificações" component={ManageSavories} />
+            <Tab.Screen name="Doces" component={ManageSweets} />
+            <Tab.Screen name="Salgados" component={ManageSavories} />
         </Tab.Navigator>
     );
 }

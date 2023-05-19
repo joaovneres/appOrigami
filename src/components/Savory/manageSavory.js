@@ -21,8 +21,9 @@ export default function ManageSavories() {
     useEffect(() => {
         async function search() {
             const response = await api.get("646562048e4aa6225e9f081a");
-            setSavories(response.data);
+            setSavories(response.data.record.savory);
             setLoading(false);
+            console.log(savories)
         }
         search();
     }, [])
@@ -30,9 +31,7 @@ export default function ManageSavories() {
     return (
         <SafeAreaView style={style.container}>
             <View style={style.list}>
-
-                <Text style={style.textTitle}>Doces</Text>
-
+                <Text style={style.textTitle}>Salgados</Text>
                 {
                     loading ?
                         (
@@ -40,13 +39,12 @@ export default function ManageSavories() {
                         ) :
                         (
                             <FlatList
-                                horizontal
-                                keyExtractor={item => item.key}
-                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{ justifyContent: 'center' }}
+                                keyExtractor={item => item.id}
+                                showsVerticalScrollIndicator={false}
                                 data={savories}
                                 renderItem={({ item }) => (
-                                    <List data={item}
-                                    />
+                                    <List data={item} />
                                 )}
                             />
                         )

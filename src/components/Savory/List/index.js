@@ -10,11 +10,11 @@ import {
 import { Card } from "react-native-paper";
 
 const slider_width = Dimensions.get("window").width;
-const item_width = slider_width * 0.6;
+const item_width = slider_width * 0.9;
 
 export default function List({ data }) {
     return (
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Card style={styles.container}>
                 <Card.Title title={data.name} titleStyle={styles.titleCard} />
                 <Card.Cover source={{ uri: data.image }} style={styles.image} />
@@ -31,6 +31,7 @@ export default function List({ data }) {
 const styles = StyleSheet.create({
     container: {
         marginHorizontal: 10,
+        marginVertical: 7,
         padding: 10,
         paddingBottom: 2,
         width: item_width,
